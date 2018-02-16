@@ -1,9 +1,9 @@
 'use strict';
 import Comment from '../models/comment'
 
-export const getCommentsByUserId = async(userId) => {
+export const getCommentsByClientId = async(clientid) => {
     try {
-        let result = await Comment.find({userid: userId})
+        let result = await Comment.find({clientid: clientid})
         .catch(err => {
             throw new Error('Error while find comments by userId from db')
         });

@@ -1,0 +1,30 @@
+<template>
+<el-container>
+  <el-header><h1>BWComments</h1></el-header>
+  <el-main>
+    <h1>Main</h1>
+    <router-view/>
+  </el-main>
+  <el-footer>&copy; 2018 BWComments</el-footer>
+</el-container>
+    
+</template>
+
+<script>
+export default {
+  name: 'App'
+}
+</script>
+
+<style lang="scss">
+.el-header {
+  h1 {
+    color: #665CAC;
+  }
+}
+.el-main {
+  width: 960px;
+  overflow: hidden;
+  align-self: center;
+}
+</style>

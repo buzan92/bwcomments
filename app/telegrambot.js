@@ -9,6 +9,10 @@ import { createComment } from './controllers/comment'
 const TOKEN = config.app.telegramToken;
 export const bot = new TelegramBot(TOKEN, { polling: true });
 
+export const reply = async (chatId, msg) => {
+    bot.sendMessage(chatId, msg)
+}
+
 const startMsg = 'Сервис анонимных отзывов';
 const start = {
     reply_markup: {
