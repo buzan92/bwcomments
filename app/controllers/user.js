@@ -13,7 +13,6 @@ export const getUser = async(chatid) => {
     }
 }
 
-
 export const getUserCount = async() => {
     try {
         let result = await User.count()

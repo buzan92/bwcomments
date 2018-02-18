@@ -20,9 +20,6 @@ mongoose.connection.on('error', console.error);
 
 const app = new Koa();
 
-//var server = require('http').createServer(app.callback())
-//server.listen("your port", "your host")
-
 app.use(serve(__dirname + '/public/photo'))
     .use(logger())
     .use(err)
@@ -35,6 +32,7 @@ var server = require('http').createServer(app.callback())
 var io = require('socket.io')(server)
 server.listen(config.server.port, "localhost")  
 
+console.log(__dirname.slice(0, -3));
 /*
 app.listen(config.server.port, function () {
     console.log('%s listening at port %d', config.app.name, config.server.port);
@@ -45,8 +43,7 @@ io.on('connection', function (socket) {
     console.log('node on connection fire');
     socket.emit('news', { hello: 'world' });
     socket.on('mevent', function (data) {
-        const a = reply(351389037, data);
-        //351389037
-      console.log(data);
+        const a = reply(data.content);
+        console.log(data);
     });
 });

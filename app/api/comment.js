@@ -1,10 +1,12 @@
 'use strict';
 import Comment from '../models/comment'
-import { getCommentsByClientId } from '../controllers/comment'
+import * as ctrl from '../controllers/comment'
+import { reply } from '../telegrambot'
 
 export default router => {
     router
-        .post('/api/getcomments/', getCommentsByClientIdApi)
+        .post('/api/getcomments/', getCommentsByClientId)
+        .post('/api/replycomment/', replyComment)
 //        .post('/api/client/', createClientApi)
 //      .post('/categories', mw.verifyToken, create)
 //      .get('/categories', allCategory)
@@ -12,20 +14,37 @@ export default router => {
 //      .delete('/categories/:id', mw.verifyToken, deleteCat)
 }
 
-async function getCommentsByClientIdApi(ctx, next) {
+async function getCommentsByClientId(ctx, next) {
+    let data = {}, success = false;
     const { clientid } = ctx.request.body;
-    let data = {},
-        success = false;
-    
-    let comments = await getCommentsByClientId(clientid)
+    let comments = await ctrl.getCommentsByClientId(clientid)
     if (comments) {
         success = true;
         data = comments;
     } 
-    
     ctx.body = {
         success: success,
         data: data
+    }
+    await next();
+}
+
+async function replyComment(ctx, next) {
+    let msg = '', success = false;
+    const { commentid, chatid, msgid, content } = ctx.request.body;
+    if (commentid && chatid && msgid && content) {
+        const replymsg = await reply(chatid, content, msgid);
+        const result = await ctrl.replyComment(commentid, replymsg.date, content);
+        if (result) {
+            success = true;
+            msg = 'Ответ на отзыв успешно отправлен';
+        }
+    } else {
+        msg = 'Произошла ошибка, попробуйте свой запрос позже';
+    }
+    ctx.body = {
+        success: success,
+        msg: msg
     }
     await next();
 }

@@ -3,11 +3,15 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema;
 const Comment = new Schema({
     clientid: Number,
-    chatid: String,
-    type: String,
+    chatid: Number,
+    msgid: Number,
     createdate: Number,
     content: String,
-    photo: String
+    photo: String,
+    reply: [{
+        createdate: Number,
+        content: String
+    }]
     /*
     comments: [{
         type: String, //review || response

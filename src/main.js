@@ -4,8 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import VueSocketio from 'vue-socket.io';
-
 import Element from 'element-ui'
+import './assets/style.scss';
+import './assets/element-variables.sass';
+
 
 Vue.use(Element)
 Vue.use(VueSocketio, 'http://localhost:3100');

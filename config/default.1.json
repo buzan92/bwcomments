@@ -1,0 +1,15 @@
+{
+    "app": {
+        "name": "bwcomments",
+        "telegramToken": ""
+    },
+    "server": {
+        "port": 3100
+    },
+    "mongodb": {
+        "url": "mongodb://localhost:27017/bwcomments",
+        "options": {
+            "promiseLibrary": "global.Promise"
+        }
+    }
+}

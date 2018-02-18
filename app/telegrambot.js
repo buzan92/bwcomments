@@ -4,13 +4,32 @@ import User from './models/user'
 import Comment from './models/comment'
 import { getClient } from './controllers/client'
 import { getUser, createUser, updateUserState } from './controllers/user'
-import { createComment } from './controllers/comment'
+import { createComment, replyComment } from './controllers/comment'
 
 const TOKEN = config.app.telegramToken;
 export const bot = new TelegramBot(TOKEN, { polling: true });
 
-export const reply = async (chatId, msg) => {
-    bot.sendMessage(chatId, msg)
+/*
+{ message_id: 635,
+  from:
+   { id: 351389037,
+     is_bot: false,
+     first_name: 'Just',
+     last_name: 'Buzan',
+     username: 'buzan1',
+     language_code: 'ru-RU' },
+  chat:
+   { id: 351389037,
+     first_name: 'Just',
+     last_name: 'Buzan',
+     username: 'buzan1',
+     type: 'private' },
+  date: 1518968863,
+  text: 'cxxzzc' }
+*/
+export const reply = async (chatid, content, msgid) => {
+    const result = await bot.sendMessage(chatid, content, { reply_to_message_id: msgid });
+    return result;
 }
 
 const startMsg = 'Сервис анонимных отзывов';
@@ -74,6 +93,7 @@ bot.on('callback_query', async function (msg) {
 
 
 bot.on('message', async function(msg) {
+    //console.log(msg);
     if (msg.text && (msg.text === '/start') || (msg.text === '/help')) {
         return;
     }
@@ -128,23 +148,21 @@ const createNewComment = async function(msg, clientid) {
     try {
         if (msg.photo) {
             let photoId = msg.photo[msg.photo.length - 1].file_id;
-            //const photoPath = __dirname + '/public/photo/' + photoId;
-            //fs.mkdirSync(photoPath);
-            let path = await bot.downloadFile(photoId, __dirname + '/public/photo/')
+            let path = await bot.downloadFile(photoId, __dirname.slice(0, -3) + '/static/photo/')
                 .then(function (path) {
                     const filename = path.slice(path.lastIndexOf('/') + 1);
-                    //photo = '/app/public/photo/' + photoId + '/' + filename;
-                    photo = '/app/public/photo/' + filename;
+                    photo = '/static/photo/' + filename;
                     console.log(photo);
             });
         }
         const comment = new Comment({
             clientid: clientid,
             chatid: msg.chat.id,
-            type: 'review',
+            msgid: msg.message_id,
             createdate: msg.date,
             content: content,
-            photo: photo
+            photo: photo,
+            reply: []
         });
         await createComment(comment);
         success = true;

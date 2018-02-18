@@ -1,0 +1,38 @@
+.el-tab-pane {
+    display: flex;
+    flex-direction: column;
+    background-color: #E4E7ED;
+}
+
+.comment-card {
+    max-width: 400px;
+    background-color: #665cac;
+    color: #ffffff;
+    border: none;
+    margin: 10px 0 0 15px;
+    p {
+        margin: 2px;
+    }
+}
+
+.reply-card {
+    max-width: 400px;
+    margin: 10px 15px 0 0;
+    align-self: end;
+    p {
+        margin: 2px;
+    }
+}
+
+.image {
+    max-width: 360px;
+    max-height: 360px;
+}
+
+.reply-form {
+    display: flex;
+    margin: 20px 0px 0 15px;
+    .reply-input, .el-form-item__content {
+        width: 100%;
+    }
+}
