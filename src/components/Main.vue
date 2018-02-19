@@ -59,7 +59,7 @@ export default {
         reply: function(commentid, chatid, msgid, replyform, index) {
             if (replyform.text) {
                 this.replyLoading = true;
-                axios.post('http://localhost:3100/api/replycomment/', {
+                axios.post('http://localhost:3000/api/replycomment/', {
                     commentid: commentid,
                     chatid: chatid,
                     msgid: msgid,
@@ -110,7 +110,7 @@ export default {
         }
     },
     created() {
-        axios.post('http://localhost:3100/api/getcomments/', {
+        axios.post('http://localhost:3000/api/getcomments/', {
             clientid: 1
         })
         .then((response) => {

@@ -20,7 +20,8 @@ mongoose.connection.on('error', console.error);
 
 const app = new Koa();
 
-app.use(serve(__dirname + '/public/photo'))
+app//.use(serve(__dirname + '/public/photo'))
+    .use(serve(__dirname.slice(0, -3) + '/dist'))
     .use(logger())
     .use(err)
     .use(koaBody())

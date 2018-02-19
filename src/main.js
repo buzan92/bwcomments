@@ -10,7 +10,7 @@ import './assets/element-variables.sass';
 
 
 Vue.use(Element)
-Vue.use(VueSocketio, 'http://localhost:3100');
+Vue.use(VueSocketio, 'http://localhost:3000');
 
 Vue.config.productionTip = false
 

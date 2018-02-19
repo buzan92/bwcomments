@@ -148,7 +148,7 @@ const createNewComment = async function(msg, clientid) {
     try {
         if (msg.photo) {
             let photoId = msg.photo[msg.photo.length - 1].file_id;
-            let path = await bot.downloadFile(photoId, __dirname.slice(0, -3) + '/static/photo/')
+            let path = await bot.downloadFile(photoId, __dirname.slice(0, -3) + 'dist/static/photo/')
                 .then(function (path) {
                     const filename = path.slice(path.lastIndexOf('/') + 1);
                     photo = '/static/photo/' + filename;
