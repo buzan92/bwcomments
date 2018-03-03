@@ -6,10 +6,11 @@ import mongoose from 'mongoose'
 import koaBody from 'koa-body'
 import koaCors from 'koa2-cors'
 import logger from 'koa-logger'
+import path from 'path'
 import serve from 'koa-static'
 import socketio from 'socket.io'
 
-import { bot, reply } from './telegrambot'
+import { bot } from './telegrambot'
 
 import router from './router'
 
@@ -20,8 +21,8 @@ mongoose.connection.on('error', console.error);
 
 const app = new Koa();
 
-app//.use(serve(__dirname + '/public/photo'))
-    .use(serve(__dirname.slice(0, -3) + '/dist'))
+app.use(serve(path.resolve(__dirname, '../dist/')))
+    .use(serve(path.resolve(__dirname, '../static/')))
     .use(logger())
     .use(err)
     .use(koaBody())
@@ -29,16 +30,16 @@ app//.use(serve(__dirname + '/public/photo'))
     .use(router.routes())
     .use(router.allowedMethods())
 
-var server = require('http').createServer(app.callback())
-var io = require('socket.io')(server)
-server.listen(config.server.port, "localhost")  
+//var server = require('http').createServer(app.callback())
+//var io = require('socket.io')(server)
+//server.listen(config.server.port, "localhost")  
 
-console.log(__dirname.slice(0, -3));
-/*
+
 app.listen(config.server.port, function () {
     console.log('%s listening at port %d', config.app.name, config.server.port);
 });
-*/
+
+/*
 
 io.on('connection', function (socket) {
     console.log('node on connection fire');
@@ -48,3 +49,4 @@ io.on('connection', function (socket) {
         console.log(data);
     });
 });
+*/

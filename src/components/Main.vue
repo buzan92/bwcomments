@@ -4,7 +4,7 @@
     <el-tabs tab-position="left">
         <el-tab-pane v-for="(comment, index) in comments" :key="index" :label="formatDate(comment.createdate)">
             <el-card class="comment-card">
-                <img :src="comment.photo" class="image">
+                <img :src="comment.photo" class="image" v-if="comment.photo !== ''">
                 <p>{{comment.content}}</p> 
             </el-card>
 
@@ -25,7 +25,8 @@
         </el-tab-pane>
     </el-tabs>
     
-    
+    <el-button type="success" @click="route">AYE</el-button>
+
 </el-container>
 </template>
 
@@ -56,6 +57,10 @@ export default {
         }
     },
     methods: {
+        route: function() {
+            console.log('ssss');
+            this.$router.push('/account');
+        },
         reply: function(commentid, chatid, msgid, replyform, index) {
             if (replyform.text) {
                 this.replyLoading = true;
@@ -76,6 +81,7 @@ export default {
                             createdate: Date.now()/1000,
                             content: replyform.text
                         });
+                        this.replyform.text = '';
                     } else {
                         this.$message({
                             message: response.data.msg,

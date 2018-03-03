@@ -7,11 +7,6 @@ export default router => {
     router
         .post('/api/getcomments/', getCommentsByClientId)
         .post('/api/replycomment/', replyComment)
-//        .post('/api/client/', createClientApi)
-//      .post('/categories', mw.verifyToken, create)
-//      .get('/categories', allCategory)
-//      .patch('/categories/:id', mw.verifyToken, modify)
-//      .delete('/categories/:id', mw.verifyToken, deleteCat)
 }
 
 async function getCommentsByClientId(ctx, next) {

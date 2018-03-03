@@ -20,7 +20,6 @@ export const createComment = async(comment) => {
             throw new Error('Error while save new comment into db');
         });
         return true;
-        //TODO return??
     } catch(err) {
         console.log(err);
     }
@@ -38,7 +37,6 @@ export const replyComment = async(id, createdate, content) => {
             throw new Error('Error while save new comment into db');
         });
         return true;
-        //TODO return??
     } catch(err) {
         console.log(err);
     }

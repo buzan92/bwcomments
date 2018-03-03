@@ -1,7 +1,31 @@
+/* theme color */
+$--color-primary: #665cac;
+
+/* icon font path, required */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+@import "~element-ui/packages/theme-chalk/src/index";
+
+.el-header {
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+    h1 {
+        color: #665CAC;
+    }
+}
+.el-main {
+    width: 960px;
+    overflow: hidden;
+    align-self: center;
+}
+
 .el-tab-pane {
     display: flex;
     flex-direction: column;
     background-color: #E4E7ED;
+}
+
+.el-tabs__item {
+    outline: none;
 }
 
 .comment-card {

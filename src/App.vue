@@ -16,14 +16,5 @@ export default {
 </script>
 
 <style lang="scss">
-.el-header {
-  h1 {
-    color: #665CAC;
-  }
-}
-.el-main {
-  width: 960px;
-  overflow: hidden;
-  align-self: center;
-}
+
 </style>

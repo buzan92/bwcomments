@@ -1,5 +1,6 @@
 import TelegramBot from 'node-telegram-bot-api'
 import config from 'config'
+import path from 'path'
 import User from './models/user'
 import Comment from './models/comment'
 import { getClient } from './controllers/client'
@@ -9,24 +10,6 @@ import { createComment, replyComment } from './controllers/comment'
 const TOKEN = config.app.telegramToken;
 export const bot = new TelegramBot(TOKEN, { polling: true });
 
-/*
-{ message_id: 635,
-  from:
-   { id: 351389037,
-     is_bot: false,
-     first_name: 'Just',
-     last_name: 'Buzan',
-     username: 'buzan1',
-     language_code: 'ru-RU' },
-  chat:
-   { id: 351389037,
-     first_name: 'Just',
-     last_name: 'Buzan',
-     username: 'buzan1',
-     type: 'private' },
-  date: 1518968863,
-  text: 'cxxzzc' }
-*/
 export const reply = async (chatid, content, msgid) => {
     const result = await bot.sendMessage(chatid, content, { reply_to_message_id: msgid });
     return result;
@@ -148,12 +131,12 @@ const createNewComment = async function(msg, clientid) {
     try {
         if (msg.photo) {
             let photoId = msg.photo[msg.photo.length - 1].file_id;
-            let path = await bot.downloadFile(photoId, __dirname.slice(0, -3) + 'dist/static/photo/')
-                .then(function (path) {
-                    const filename = path.slice(path.lastIndexOf('/') + 1);
+            
+            let downloadPath = await bot.downloadFile(photoId, path.resolve(__dirname, '../static/photo'))
+                .then(function (downloadPath) {
+                    const filename = downloadPath.slice(downloadPath.lastIndexOf('/') + 1);
                     photo = '/static/photo/' + filename;
-                    console.log(photo);
-            });
+                });    
         }
         const comment = new Comment({
             clientid: clientid,
